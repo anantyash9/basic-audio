@@ -22,8 +22,12 @@ io.on('connection', socket => {
     if (clients.size === 2) io.to(room).emit('ready');
   });
 
+  socket.on('audio', ({ room, chunk }) => socket.to(room).emit('audio', chunk));
+
   socket.on('disconnect', () => console.log('client disconnected:', socket.id));
 });
+
+
 
 httpServer.listen(3000, () =>
   console.log('Open http://localhost:3000 in two tabs or laptops')
